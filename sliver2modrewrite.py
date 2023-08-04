@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/env python
 
 ## Title:       sliver2modrewrite.py
@@ -73,7 +71,7 @@ else:
 
 # URI path stuff
 uris = []
-paths = ["session_paths","poll_paths","close_paths"]
+paths = ["session_paths","poll_paths","close_paths","stager_paths"]
 
 # extract all uri path values
 for path in paths:
@@ -87,7 +85,7 @@ for path in paths:
 
 # Extension stuff
 extensions = []
-exts = ["session_file_ext","start_session_file_ext","poll_file_ext","close_file_ext"]
+exts = ["session_file_ext","start_session_file_ext","poll_file_ext","close_file_ext","stager_file_ext"]
 
 # extract all file extension values
 for file_ext in exts:
@@ -101,7 +99,7 @@ for file_ext in exts:
 
 # File path stuff
 f_paths = []
-file_paths = ["session_files","poll_files","close_files"]
+file_paths = ["session_files","poll_files","close_files","stager_files"]
 
 # extract all file path values
 for path in file_paths:
