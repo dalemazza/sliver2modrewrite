@@ -63,10 +63,8 @@ else:
 ua = ''
 uas = contents["implant_config"]["user_agent"]
 if uas == "":
-    print("No User Agent Found")
     ua = "^.*$"
 else:
-    print("User Agent string found")
     ua = '"' + uas + '"'
 
 # URI path stuff
@@ -81,7 +79,7 @@ for path in paths:
         print("No " + path + " found")
     else:
         for i in uri_paths:
-            uris.append("/" + i)
+            uris.append("\/" + i)
 
 # Extension stuff
 extensions = []
@@ -94,9 +92,7 @@ for file_ext in exts:
     if ext_p == "":
         print("No " + exts + " found")
     else:
-        for i in ext_p:
-            extensions.append("." + i)
-
+         extensions.append(ext_p)
 # File path stuff
 f_paths = []
 file_paths = ["session_files","poll_files","close_files","stager_files"]
@@ -114,9 +110,11 @@ for path in file_paths:
 # Create UA in modrewrite syntax. No regex needed in UA string matching, but () characters must be escaped
 ua_string = ua.replace('(','\(').replace(')','\)')
 
-# Create URI string in modrewrite syntax. "*" are needed in regex to support GET and uri-append parameters on the URI
-uris_string = ".*|".join(uris) + ".*"
-
+# Create regex strings in modrewrite syntax. "*" are needed in regex to support GET and uri-append parameters on the URI
+uris_string = "\/?|".join(uris) + "\/?|\/"
+files_string = "|".join(f_paths)
+exts_string = "|".join(extensions)
+mmvars = "{1,8}"
 htaccess_template = '''
 ########################################
 ## .htaccess START
@@ -128,7 +126,7 @@ RewriteEngine On
 ## Only allow GET and POST methods to pass to the C2 server
 RewriteCond %{{REQUEST_METHOD}} ^(GET|POST) [NC]
 ## Profile URIs
-RewriteCond %{{REQUEST_URI}} ^({uris})$
+RewriteCond %{{REQUEST_URI}} ^({uris}){min_max}({files})({exts})(?.*)$
 ## Profile UserAgent
 RewriteCond %{{HTTP_USER_AGENT}} {ua}
 RewriteRule ^.*$ "{c2server}%{{REQUEST_URI}}" [P,L]
@@ -149,7 +147,7 @@ else:
 print("## Profile paths found ({})".format(str(len(uris))))
 print("## Profile file paths found ({})".format(str(len(f_paths))))
 print("## Profile file extension paths found ({})".format(str(len(extensions))))
-htaccess = htaccess_template.format(uris=uris_string, ua=ua_string, c2server=args.c2server, redirect=args.redirect)
+htaccess = htaccess_template.format(uris=uris_string, ua=ua_string, c2server=args.c2server, redirect=args.redirect, files=files_string, exts=exts_string, min_max=mmvars)
 if args.out_file:
     with open(args.out_file, 'w') as outfile:
         outfile.write(htaccess)
