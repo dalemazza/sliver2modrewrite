@@ -1,4 +1,4 @@
-# UNDER DEVELOPMENT 
+
 # sliver2modrewrite
 > Convert sliver's http-config.json file to apache modrewrite
 ## Description
