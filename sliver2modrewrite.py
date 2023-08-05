@@ -79,7 +79,7 @@ for path in paths:
         print("No " + path + " found")
     else:
         for i in uri_paths:
-            uris.append("\/" + i)
+            uris.append("/" + i)
 
 # Extension stuff
 extensions = []
@@ -111,7 +111,7 @@ for path in file_paths:
 ua_string = ua.replace('(','\(').replace(')','\)')
 
 # Create regex strings in modrewrite syntax. "*" are needed in regex to support GET and uri-append parameters on the URI
-uris_string = "\/?|".join(uris) + "\/?|\/"
+uris_string = "/?|".join(uris) + "/?|/"
 files_string = "|".join(f_paths)
 exts_string = "|".join(extensions)
 mmvars = "{1,8}"
