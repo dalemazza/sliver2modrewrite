@@ -1,13 +1,28 @@
 {
     "implant_config": {
         "user_agent": "",
+        "chrome_base_version": 100,
+        "macos_version": "10_15_7",
         "url_parameters": null,
         "headers": null,
         "max_files": 8,
         "min_files": 2,
-        "max_paths": 8,
+        "max_paths": 4,
         "min_paths": 2,
         "stager_file_ext": ".woff",
+        "stager_files": [
+            "attribute_text_w01_regular",
+            "ZillaSlab-Regular.subset.bbc33fb47cf6",
+            "ZillaSlab-Bold.subset.e96c15f68c68",
+            "Inter-Regular",
+            "Inter-Medium"
+        ],
+        "stager_paths": [
+            "static",
+            "assets",
+            "fonts",
+            "locales"
+        ],
         "poll_file_ext": ".js",
         "poll_files": [
             "bootstrap",
@@ -83,11 +98,11 @@
     "server_config": {
         "random_version_headers": false,
         "headers": [
-            {
-                "name": "Cache-Control",
-                "value": "no-store, no-cache, must-revalidate",
-                "probability": 100
-            }
+        	{
+        		"name": "Cache-Control",
+        		"value": "no-cache",
+        		"probability": 100
+        	}
         ],
         "cookies": [
             "PHPSESSID",

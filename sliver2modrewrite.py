@@ -11,11 +11,11 @@ import json
 
 description = '''
 Python 3.0+
-Converts sliver http-config json file to Apache mod_rewrite. This outputs .htaccess file format which contains the rewrite rules.
+Converts sliver http-c2 json file to Apache mod_rewrite. This outputs .htaccess file format which contains the rewrite rules.
 '''
 
 parser = argparse.ArgumentParser(description=description)
-parser.add_argument('-i', dest='inputfile', help='Sliver http-config.json file', required=True)
+parser.add_argument('-i', dest='inputfile', help='Sliver http-c2.json file', required=True)
 parser.add_argument('-c', dest='c2server', help='Sliver Server (http://teamserver)', required=True)
 parser.add_argument('-r', dest='redirect', help='Redirect to this URL (http://google.com)', required=True)
 parser.add_argument('-o', dest='out_file', help='Write .htaccess contents to target file', required=False)
@@ -79,7 +79,7 @@ for path in paths:
         print("No " + path + " found")
     else:
         for i in uri_paths:
-            uris.append("/" + i)
+            uris.append("\/" + i)
 
 # Extension stuff
 extensions = []
@@ -111,7 +111,7 @@ for path in file_paths:
 ua_string = ua.replace('(','\(').replace(')','\)')
 
 # Create regex strings in modrewrite syntax. "*" are needed in regex to support GET and uri-append parameters on the URI
-uris_string = "/?|".join(uris) + "/?|/"
+uris_string = "\/?|".join(uris) + "\/?|\/"
 files_string = "|".join(f_paths)
 exts_string = "|".join(extensions)
 mmvars = "{1,8}"
