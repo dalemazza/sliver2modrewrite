@@ -52,7 +52,7 @@ python3 sliver2modrewrite.py -i http-c2.json -c http://10.10.10.10 -r https://go
 6. Save the output into `/var/www/html/.htaccess` or copy the saved .htacces file to the directory
 7. `sudo systemctl restart apache2`
 
-## Exmaple apache mod rewrite config
+## Example apache mod rewrite config
 ```
 ########################################
 ## .htaccess START
