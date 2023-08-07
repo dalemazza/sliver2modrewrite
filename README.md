@@ -2,7 +2,7 @@
 # sliver2modrewrite
 > Convert sliver's http-c2.json file to apache modrewrite
 ## Description
-This is a script that helps automate the process of converting sliver's http-c2 file to apache modrewrite format to allow use with a C2 redirector.
+This is a script that helps automate the process of converting sliver's http-c2 file to apache modrewrite format to allow use with a C2 redirector. The script takes into account sliver's procedural HTTP/S generation. 
 ## How it works
 * Takes an argument of
   * http-c2
