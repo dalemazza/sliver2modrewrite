@@ -58,6 +58,10 @@ else:
     print("[!] Could not find implant_config in the provided JSON file",file=sys.stderr)
     sys.exit(1)
 
+# Extract min/max paths
+
+min = str(contents["implant_config"]["min_paths"])
+max = str(contents["implant_config"]["max_paths"])
 
 # Extract User-Agent string
 ua = ''
@@ -111,10 +115,10 @@ for path in file_paths:
 ua_string = ua.replace('(','\(').replace(')','\)')
 
 # Create regex strings in modrewrite syntax. "*" are needed in regex to support GET and uri-append parameters on the URI
-uris_string = "/?|".join(uris) + "/?|/"
+uris_string = "/?|".join(uris) + "/?|/?"
 files_string = "|".join(f_paths)
 exts_string = "|".join(extensions)
-mmvars = "{2,4}"
+mmvars = "{" + min + "," + max + "}"
 htaccess_template = '''
 ########################################
 ## .htaccess START
@@ -126,7 +130,9 @@ RewriteEngine On
 ## Only allow GET and POST methods to pass to the C2 server
 RewriteCond %{{REQUEST_METHOD}} ^(GET|POST) [NC]
 ## Profile URIs
-RewriteCond %{{REQUEST_URI}} ^({uris}){min_max}({files})({exts})(?.*)$
+RewriteCond %{{REQUEST_URI}} ^({uris}){min_max}({files})({exts})$
+## Query String
+RewriteCond %{{QUERY_STRING}} ^(\w{{1,3}}=.*)$
 ## Profile UserAgent
 RewriteCond %{{HTTP_USER_AGENT}} {ua}
 RewriteRule ^.*$ "{c2server}%{{REQUEST_URI}}" [P,L]
