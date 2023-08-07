@@ -65,6 +65,8 @@ RewriteEngine On
 RewriteCond %{REQUEST_METHOD} ^(GET|POST) [NC]
 ## Profile URIs
 RewriteCond %{REQUEST_URI} ^(/php/?|/api/?|/upload/?|/actions/?|/rest/?|/v1/?|/auth/?|/authenticate/?|/oauth/?|/oauth2/?|/oauth2callback/?|/database/?|/db/?|/namespaces/?|/js/?|/umd/?|/assets/?|/bundle/?|/bundles/?|/scripts/?|/script/?|/javascripts/?|/javascript/?|/jscript/?|/static/?|/www/?|/assets/?|/images/?|/icons/?|/image/?|/icon/?|/png/?|/static/?|/assets/?|/fonts/?|/locales/?|/?){2,4}(login|signin|api|samples|rpc|index|admin|register|sign-up|bootstrap|bootstrap.min|jquery.min|jquery|route|app|app.min|array|backbone|script|email|favicon|sample|example|attribute_text_w01_regular|ZillaSlab-Regular.subset.bbc33fb47cf6|ZillaSlab-Bold.subset.e96c15f68c68|Inter-Regular|Inter-Medium)(.php|.html|.js|.png|.woff)$
+## Query String
+RewriteCond %{{QUERY_STRING}} ^(\w{{1,3}}=.*)$
 ## Profile UserAgent
 RewriteCond %{HTTP_USER_AGENT} ^.*$
 RewriteRule ^.*$ "http://192.168.239.136%{REQUEST_URI}" [P,L]
